@@ -32,20 +32,33 @@ timezone = "UTC"
 # }
 
 class TaskWithContext(Task):
-    contexto = "CONTEXTO TEXTO"
+    _cache_task = { # set to none or empty
+        "runs": 0,
+        "last_task_ran": "none",
+        "welcome": 0,
+        "async": 0
+    }
+    @staticmethod
+    def inicializar_cache():
+        return {
+            "runs": 0,
+            "last_task_ran": "none",
+            "welcome": 0,
+            "async": 0
+        }
     def __init__(self, *args, **kwargs):
-        print("CONTEXTO")
         super(TaskWithContext, self).__init__(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        print("SIMBORA")
+        self._cache_task = self.inicializar_cache()
+
+        print("RESTART CACHE?")
         return super().__call__(*args, **kwargs)
     def apply_async(
         self,
         args=None,
         kwargs=None,
     ):
-        print(self)
         return super().apply_async(
             args=args,
             kwargs=kwargs,

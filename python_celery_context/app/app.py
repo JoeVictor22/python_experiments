@@ -7,6 +7,7 @@ def create_app(config):
     """
     Flask app factory
     """
+    raise Exception
     print("creating flask_app")
     app = Flask("app")
     app.config.from_object(config)

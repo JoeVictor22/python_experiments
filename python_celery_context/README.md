@@ -7,7 +7,7 @@ celery -A app.runcelery:celery beat
 
 
 
-celery -A app:celery worker --loglevel=INFO --concurrency=2 -n worker1@%h
+celery -A app:celery worker --loglevel=DEBUG --concurrency=2 -n worker1@%h
 
 
 ```

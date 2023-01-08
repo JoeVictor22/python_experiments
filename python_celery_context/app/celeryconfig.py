@@ -1,3 +1,5 @@
+from celery import Task
+
 # -*- coding: utf-8 -*-
 """
 Configure Celery. See the configuration guide at ->
@@ -28,3 +30,23 @@ timezone = "UTC"
 #        'args': (16, 16)
 #    },
 # }
+
+class TaskWithContext(Task):
+    contexto = "CONTEXTO TEXTO"
+    def __init__(self, *args, **kwargs):
+        print("CONTEXTO")
+        super(TaskWithContext, self).__init__(*args, **kwargs)
+
+    def __call__(self, *args, **kwargs):
+        print("SIMBORA")
+        return super().__call__(*args, **kwargs)
+    def apply_async(
+        self,
+        args=None,
+        kwargs=None,
+    ):
+        print(self)
+        return super().apply_async(
+            args=args,
+            kwargs=kwargs,
+        )

@@ -19,20 +19,20 @@ services:
 #       - 5672
 #       - 15672
 
-#   postgres_experiment:
-#     image: postgres_experiment
-#     build:
-#       dockerfile: ./postgres.Dockerfile
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-#     env_file:
-#       - .env
-#     environment:
-#       POSTGRES_PASSWORD: $DB_PASSWORD
-#       POSTGRES_USER: $DB_USER
-#       POSTGRES_DB: $DB_NAME
-#     networks:
-#       - mesh
+  postgres_experiment:
+    image: postgres_experiment
+    build:
+      dockerfile: ./postgres.Dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_USER: $DB_USER
+      POSTGRES_DB: $DB_NAME
+    networks:
+      - mesh
 
   python_experiment:
     container_name: python_experiment
@@ -70,8 +70,8 @@ services:
   #   volumes:
   #     - './:/app'
 
-# volumes:
-#   postgres_data:
+volumes:
+  postgres_data:
 
 networks:
   mesh:

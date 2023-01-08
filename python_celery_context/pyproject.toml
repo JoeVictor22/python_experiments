@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "python-experiment"
+version = "0.1.0"
+description = "Base template"
+authors = ["joel <joelvictor1746@gmail.com>"]
+readme = "README.md"
+packages = [{include = "python_experiment"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+black = "^22.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

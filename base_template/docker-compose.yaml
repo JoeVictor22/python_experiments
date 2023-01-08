@@ -7,7 +7,7 @@ services:
 #     networks:
 #       - mesh
 #     ports: 
-#       - 6379
+#       - 6379:6379
 
 # ## broker_url = 'amqp://guest:guest@localhost:5672//'
 #   rabbitm_experiment:
@@ -16,8 +16,8 @@ services:
 #     networks:
 #       - mesh
 #     ports: 
-#       - 5672
-#       - 15672
+#       - 5672:5672
+#       - 15672:15672
 
 #   postgres_experiment:
 #     image: postgres_experiment
@@ -27,6 +27,8 @@ services:
 #       - postgres_data:/var/lib/postgresql/data
 #     env_file:
 #       - .env
+#     ports: 
+#       - 5432:5432
 #     environment:
 #       POSTGRES_PASSWORD: $DB_PASSWORD
 #       POSTGRES_USER: $DB_USER

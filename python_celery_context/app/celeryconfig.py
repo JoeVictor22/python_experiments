@@ -1,4 +1,5 @@
 from celery import Task
+from memory_profiler import profile
 
 # -*- coding: utf-8 -*-
 """
@@ -31,21 +32,33 @@ timezone = "UTC"
 #    },
 # }
 
+
 class TaskWithContext(Task):
-    _cache_task = { # set to none or empty
+    _cache_task = {  # set to none or empty
         "runs": 0,
         "last_task_ran": "none",
         "welcome": 0,
-        "async": 0
+        "async": 0,
+        "blob": [],
     }
+    _cache_worker = {
+        "runs": 0,
+        "last_task_ran": "none",
+        "welcome": 0,
+        "async": 0,
+        "blob": [],
+    }
+
     @staticmethod
     def inicializar_cache():
         return {
             "runs": 0,
             "last_task_ran": "none",
             "welcome": 0,
-            "async": 0
+            "async": 0,
+            "blob": [],
         }
+
     def __init__(self, *args, **kwargs):
         super(TaskWithContext, self).__init__(*args, **kwargs)
 
@@ -54,6 +67,7 @@ class TaskWithContext(Task):
 
         print("RESTART CACHE?")
         return super().__call__(*args, **kwargs)
+
     def apply_async(
         self,
         args=None,

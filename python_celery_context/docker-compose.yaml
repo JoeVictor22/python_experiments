@@ -1,0 +1,78 @@
+version: '3.5'
+
+services:
+#   redis_experiment:
+#     image: redis
+#     container_name: redis_experiment
+#     networks:
+#       - mesh
+#     ports: 
+#       - 6379
+
+# ## broker_url = 'amqp://guest:guest@localhost:5672//'
+#   rabbitm_experiment:
+#     image: rabbitmq:3-management-alpine
+#     container_name: rabbitmq
+#     networks:
+#       - mesh
+#     ports: 
+#       - 5672
+#       - 15672
+
+#   postgres_experiment:
+#     image: postgres_experiment
+#     build:
+#       dockerfile: ./postgres.Dockerfile
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     env_file:
+#       - .env
+#     environment:
+#       POSTGRES_PASSWORD: $DB_PASSWORD
+#       POSTGRES_USER: $DB_USER
+#       POSTGRES_DB: $DB_NAME
+#     networks:
+#       - mesh
+
+  python_experiment:
+    container_name: python_experiment
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - SOME_BUILD_ARG=true
+    env_file:
+      - .env
+    environment:
+     - SOME_ENV=true
+    command: python main.py
+    networks:
+      - mesh
+    volumes:
+      - './:/app'
+
+  # celery_experiment:
+  #   container_name: celery_experiment
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #     args:
+  #       - SOME_BUILD_ARG=true
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - C_FORCE_ROOT=1
+  #   # command: watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- celery -A celery_app:app worker -l DEBUG -c 1
+  #   command: python main.py
+  #   networks:
+  #     - mesh
+  #   entrypoint: ""
+  #   volumes:
+  #     - './:/app'
+
+# volumes:
+#   postgres_data:
+
+networks:
+  mesh:
+    name: mesh
